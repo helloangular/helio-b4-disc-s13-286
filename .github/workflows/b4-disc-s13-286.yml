@@ -1,0 +1,43 @@
+# r143 browser test fixture: TC-286 the one workflow. Nothing is deployed and no secret is used.
+name: b4-disc-s13-286
+run-name: ${{ inputs.helio_execution_id || github.run_id }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        required: false
+        default: b4-disc-s13-286
+        options: [b4-disc-s13-286]
+      helio_execution_id:
+        type: string
+        required: false
+        default: ''
+      helio_release_id:
+        type: string
+        required: false
+        default: ''
+      workflow_revision:
+        type: string
+        required: false
+        default: ''
+      release_version:
+        type: string
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: b4-disc-s13-286
+    steps:
+      - name: Synthetic work
+        shell: bash
+        run: |
+          echo "b4-disc-s13-286 run=$GITHUB_RUN_ID attempt=$GITHUB_RUN_ATTEMPT"
+          sleep 20
